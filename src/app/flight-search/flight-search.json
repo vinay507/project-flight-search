@@ -1,0 +1,7 @@
+[
+    {"id": 1, "origin": "Pune", "destination": "Delhi", "flights": [
+        {"id": 11, "cost": 4500.00, "oneWay": {"id": "AI-202", "code": "PNG > DEL", "depart": "10.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "DEL > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
+        {"id": 11, "cost": 4500.00, "oneWay": {"id": "AI-202", "code": "PNG > DEL", "depart": "10.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "DEL > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
+        {"id": 11, "cost": 4500.00, "oneWay": {"id": "AI-202", "code": "PNG > DEL", "depart": "10.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "DEL > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}}
+    ]}
+]

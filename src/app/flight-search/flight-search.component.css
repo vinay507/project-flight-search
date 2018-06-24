@@ -1,0 +1,15 @@
+.list-group .list-group-item{
+    margin: 15px;
+    border-radius: 5px;
+}
+.details .title{
+    font-size: 20px;
+    text-transform: capitalize;
+}
+.details .ticket img{
+    width: 100px;height: 100px;
+}
+.control-label:after
+{
+ content: "*";
+}
