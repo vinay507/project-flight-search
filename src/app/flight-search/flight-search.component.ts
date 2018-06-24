@@ -18,11 +18,11 @@ export class FlightSearchComponent implements OnInit {
     range: 0
   }
   returnParam = {
-    returnorigin: 'pune',
-    returndestination: 'mumbai',
-    returndeparture: '',
+    origin: 'pune',
+    destination: 'mumbai',
+    departure: '',
     return: '',
-    returnpassengers: 1,
+    passengers: 1,
     range: 0
   }
   searchedParams;
@@ -49,21 +49,7 @@ export class FlightSearchComponent implements OnInit {
 		{"id": 11, "cost": 2500.00, "oneWay": {"id": "AI-202", "code": "DEL > MUM", "depart": "4.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > DEL", "depart": "8.00 PM", "arrive": "11.00 PM"}},
 		{"id": 11, "cost": 4500.00, "oneWay": {"id": "AI-202", "code": "DEL > MUM", "depart": "7.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > DEL", "depart": "8.00 PM", "arrive": "11.00 PM"}}
   ]},
-  {"id": 1, "origin": "Hyd", "destination": "Pune", "flights": [
-    {"id": 11, "cost": 2500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "10.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
-    {"id": 11, "cost": 5500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "12.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
-    {"id": 11, "cost": 6500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "1.00 PM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}}
-  ]},
-    {"id": 1, "origin": "Hyd", "destination": "Mumbai", "flights": [
-      {"id": 11, "cost": 2500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "10.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
-      {"id": 11, "cost": 5500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "12.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
-      {"id": 11, "cost": 6500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "1.00 PM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}}
-    ]},
-      {"id": 1, "origin": "Hyd", "destination": "Delhi", "flights": [
-        {"id": 11, "cost": 2500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "10.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
-        {"id": 11, "cost": 5500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "12.00 AM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}},
-        {"id": 11, "cost": 6500.00, "oneWay": {"id": "AI-202", "code": "PNG > MUM", "depart": "1.00 PM", "arrive": "12.00 PM"}, "return": {"id": "AI-203", "code": "MUM > PNG", "depart": "8.00 PM", "arrive": "11.00 PM"}}    
-      ]},
+  
 ];
 
   ngOnInit() {
@@ -76,24 +62,33 @@ export class FlightSearchComponent implements OnInit {
   }
 
   search = (form, flag) => {
+    let isEnter = false;
 		if(!form.valid) return;
 		this.isSearched = true;
     if(flag == 'oneway'){
-			let copy = Object.assign({}, form.value);
+			let copy = Object.assign({}, this.oneWayParam);
       this.searchedParams = copy;
+      if(this.oneWayParam.origin && this.oneWayParam.destination){
+        this.data.map(flights => {
+          if(this.oneWayParam.origin == flights.origin.toLowerCase() && this.oneWayParam.destination == flights.destination.toLowerCase() && !isEnter){
+            isEnter = true;
+            this.searchResults = flights;
+          }
+        })
+      }
     }else {
-			let copy = Object.assign({}, form.value);
+			let copy = Object.assign({}, this.returnParam);
       this.searchedParams = copy;
-		}
-		let isEnter = false;
-		if(form.value.origin && form.value.destination){
-			this.data.map(flights => {
-				if(form.value.origin == flights.origin.toLowerCase() && form.value.destination == flights.destination.toLowerCase() && !isEnter){
-					isEnter = true;
-					this.searchResults = flights;
-				}
-			})
-		}
+      if(this.returnParam.origin && this.returnParam.destination){
+        this.data.map(flights => {
+          if(this.returnParam.origin == flights.origin.toLowerCase() && this.returnParam.destination == flights.destination.toLowerCase() && !isEnter){
+            isEnter = true;
+            this.searchResults = flights;
+          }
+        })
+      }
+    }
+		
   }
        
 
