@@ -14,24 +14,27 @@
 			</ul>
 			<div class="tab-content">
 				<div id="oneWay" class="tab-pane fade" [ngClass]="{'in active': activeTab == 1}">
-					<form #oneWay="ngForm" name="onewayForm" >
+					<form #oneWay="ngForm" name="onewayForm">
 						<div class="form-group">
 							<label for="origin" class="control-label"> Origin City </label>
-							<input type="text" name="origin" class="form-control" #origin="ngModel" [(ngModel)]="oneWayParam.origin" placeholder="Enter Origin City" required>
-						 <span class="text-danger" *ngIf="origin.touched && origin.errors?.required">Please Enter Origin City</span>
+							<input type="text" name="origin" class="form-control" #origin="ngModel" [(ngModel)]="oneWayParam.origin" placeholder="Enter Origin City"
+							 required>
+							<span class="text-danger" *ngIf="origin.touched && origin.errors?.required">Please Enter Origin City</span>
 						</div>
 						<div class="form-group">
-								<label for="destination" class="control-label"> Destination City </label>
-							<input type="text" name="destination" class="form-control" #destination="ngModel" [(ngModel)]="oneWayParam.destination" placeholder="Enter Destination City" required>
+							<label for="destination" class="control-label"> Destination City </label>
+							<input type="text" name="destination" class="form-control" #destination="ngModel" [(ngModel)]="oneWayParam.destination" placeholder="Enter Destination City"
+							 required>
 							<span class="text-danger" *ngIf="destination.touched && destination.errors?.required">Please Enter Destination City</span>
 						</div>
 						<div class="form-group">
-								<label for="departure" class="control-label"> Departure Date </label>
-							<input type="date" name="departure" class="form-control" #departure="ngModel" [(ngModel)]="oneWayParam.departure" placeholder="Departure Date" required >
+							<label for="departure" class="control-label"> Departure Date </label>
+							<input type="date" name="departure" class="form-control" #departure="ngModel" [(ngModel)]="oneWayParam.departure" placeholder="Departure Date"
+							 required>
 							<span class="text-danger" *ngIf="departure.touched && departure.errors?.required">Please Enter Departure Date</span>
 						</div>
 						<div class="form-group">
-								<label for="passengers" class="control-label"> No. of Passengers </label>
+							<label for="passengers" class="control-label"> No. of Passengers </label>
 							<select class="form-control" name="passengers" id="passengers" [(ngModel)]="oneWayParam.passengers" placeholder="passengers"
 							 required>
 								<option value="0" disabled>Select Passengers</option>
@@ -41,46 +44,52 @@
 								<option value="4">4</option>
 							</select>
 						</div>
+						<button type="button" class="btn btn-primary" (click)="search(oneWay, 'oneway')">Search</button>
+
 						<div>
-								<label for="slider" > Refine Flight Search</label>
+							<label for="slider"> Refine Flight Search</label>
 							<div>
-									
+
 								<span class="pull-left">0</span>
 								<span class="pull-right">10000</span>
 							</div>
 							<div class="clearfix"></div>
-							<input name="range" type="range" min="0" max="10000" [(ngModel)]="oneWayParam.range">
-							<span>Range: {{oneWayParam.range}}</span>
+							<input name="range" type="range" min="0" max="10000" [(ngModel)]="oneWayParam.range" (change)="changeRange(oneWayParam.range)">
+							<span>Range: {{oneWayParam.range}} - 10000+</span>
 						</div>
-						
-						<button type="button" class="btn btn-primary" (click)="search(oneWay, 'oneway')">Search</button>
+
 					</form>
 				</div>
 				<div id="return" class="tab-pane fade" [ngClass]="{'in active': activeTab == 2}">
 					<form #return="ngForm" name="returnForm">
 						<div class="form-group">
-								<label for="returnorigin" class="control-label"> Origin City </label>
-							<input type="text" name="returnorigin" class="form-control" #returnorigin="ngModel" [(ngModel)]="returnParam.origin" placeholder="Enter Origin City" required>
+							<label for="returnorigin" class="control-label"> Origin City </label>
+							<input type="text" name="returnorigin" class="form-control" #returnorigin="ngModel" [(ngModel)]="returnParam.origin" placeholder="Enter Origin City"
+							 required>
 							<span class="text-danger" *ngIf="returnorigin.touched && returnorigin.errors?.required">Please Enter Origin City</span>
 						</div>
 						<div class="form-group">
-								<label for="returndestination" class="control-label"> Destination City </label>
-							<input type="text" name="returndestination" class="form-control" #returndestination="ngModel" [(ngModel)]="returnParam.destination" placeholder="Enter Destination City" required>
+							<label for="returndestination" class="control-label"> Destination City </label>
+							<input type="text" name="returndestination" class="form-control" #returndestination="ngModel" [(ngModel)]="returnParam.destination"
+							 placeholder="Enter Destination City" required>
 							<span class="text-danger" *ngIf="returndestination.touched && returndestination.errors?.required">Please Enter Destination City</span>
 						</div>
 						<div class="form-group">
-								<label for="returndeparture" class="control-label"> Departure Date </label>
-							<input type="date" name="returndeparture" class="form-control" #returndeparture="ngModel" [(ngModel)]="returnParam.departure" placeholder="Departure Date" required>
+							<label for="returndeparture" class="control-label"> Departure Date </label>
+							<input type="date" name="returndeparture" class="form-control" #returndeparture="ngModel" [(ngModel)]="returnParam.departure"
+							 placeholder="Departure Date" required>
 							<span class="text-danger" *ngIf="returndeparture.touched && returndeparture.errors?.required">Please Enter Departure Date</span>
 						</div>
 						<div class="form-group">
-								<label for="returnarrival" class="control-label"> Arrival Date </label>
-							<input type="date" name="returnarrival" class="form-control" #returnarrival="ngModel" [(ngModel)]="returnParam.arrival" placeholder="Return Date" required>
+							<label for="returnarrival" class="control-label"> Arrival Date </label>
+							<input type="date" name="returnarrival" class="form-control" #returnarrival="ngModel" [(ngModel)]="returnParam.return" placeholder="Return Date"
+							 required>
 							<span class="text-danger" *ngIf="returnarrival.touched && returnarrival.errors?.required">Please Enter Return Date</span>
 						</div>
 						<div class="form-group">
-								<label for="passengers" class="control-label"> No. of passengers </label>
-							<select class="form-control" name="passengers" id="passengers" [(ngModel)]="returnParam.passengers" placeholder="passengers" required>
+							<label for="passengers" class="control-label"> No. of passengers </label>
+							<select class="form-control" name="passengers" id="passengers" [(ngModel)]="returnParam.passengers" placeholder="passengers"
+							 required>
 								<option value="0" disabled>Select Passengers</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -88,16 +97,17 @@
 								<option value="4">4</option>
 							</select>
 						</div>
+						<button type="button" class="btn btn-primary" (click)="search(return, 'return')">Search</button>
+
 						<div>
 							<div>
 								<span class="pull-left">0</span>
 								<span class="pull-right">10000</span>
 							</div>
 							<div class="clearfix"></div>
-							<input name="range" type="range" min="0" max="10000" [(ngModel)]="returnParam.range" >
-							<div>Range: {{returnParam.range}}</div>
+							<input name="range" type="range" min="0" max="10000" [(ngModel)]="returnParam.range" (change)="changeRange(returnParam.range)">
+							<div>Range: {{returnParam.range}} - 10000+</div>
 						</div>
-						<button type="button" class="btn btn-primary" (click)="search(return, 'return')">Search</button>
 					</form>
 				</div>
 			</div>
@@ -113,8 +123,8 @@
 					<div *ngIf="activeTab == 2">Return: {{searchedParams.return | date: 'dd MMM, yyyy'}}</div>
 				</div>
 			</div>
-			<ul class="list-group" *ngIf="searchResults">
-				<li class="list-group-item row" *ngFor="let flight of searchResults.flights; let i = index">
+			<ul class="list-group" *ngIf="searchResults && searchResults.rangeflights.length">
+				<li class="list-group-item row" *ngFor="let flight of searchResults.rangeflights; let i = index">
 					<div class="col-sm-8">
 						<h1>Rs. {{activeTab == 1 ? (flight.cost * searchedParams.passengers) : (flight.cost * searchedParams.passengers * 2) }}
 						</h1>
@@ -134,11 +144,11 @@
 								<h4 [innerHtml]="flight.oneWay.code"></h4>
 								<div>
 									<b>Depart:</b>
-									<span [innerHtml]="flight.return.returndepart"></span>
+									<span [innerHtml]="flight.return.depart"></span>
 								</div>
 								<div>
 									<b>Arrive:</b>
-									<span [innerHtml]="flight.return.returnarrive"></span>
+									<span [innerHtml]="flight.return.arrive"></span>
 								</div>
 							</div>
 						</div>
@@ -151,7 +161,7 @@
 					</div>
 				</li>
 			</ul>
-			<div class="text-center" [hidden]="searchResults">No Results Found</div>
+			<div class="text-center" [hidden]="searchResults && searchResults.rangeflights.length">No Results Found</div>
 		</div>
 	</div>
 </div>
